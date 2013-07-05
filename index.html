@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html ng-app="PT-Calculator">
+<head>
+<meta charset="utf-8">
+<title>PetaVault Sizing Calculator</title>
+<meta name="description" content="">
+<meta name="author" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="css/bootstrap.css">
+<link rel="stylesheet" href="css/animate.css">
+<link rel="stylesheet" href="css/main.css">
+<!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+</head>
+<body>
+	<div class="container">
+		<hgroup class="center">
+			<h2 class="pt-caps">Petavault Sizing Calculator</h2>
+			<p class="grey"><em>A web tool to help you discover your true storage backup needs</em></p>
+			<p><small class="grey">(use tab key to quickly navigate input fields)</small></p>
+		</hgroup>
+		<hr>
+		<div class="row" ng-controller="PtCalcCtrl">
+			<div class="span7 main">
+			<form>
+				<fieldset>
+				 <label for="pt-storage" class="pt-underline"> I want to backup
+				 	<input id="pt-storage" type="text" ng-model="calc.storage"  placeholder="0" /> <span class="storage-unit">GB</span> of storage annually,
+				 </label>
+				 <br><br>
+				 <small ng-show="calc.storage">you selected {{calc.storage}} GB of data</small>
+			 </fieldset>
+				<hr>
+			 	<fieldset>
+			 	 <label for="per-week-data" class="pt-underline"> ...and I need
+			 	 	<input id="per-week-data" ng-pattern="/\d+/" ng-model="calc.wkBackups" type="text" placeholder="0" /> backups per week, <br><br>
+			 	 </label>
+		  	 <label for="per-day-data" class="pt-underline">
+		  	 	<input id="per-day-data" ng-model="calc.dlBackups" type="text" placeholder="0" /> backups per day, <br><br>
+		  	 </label>
+		  	 <label for="per-month-data" class="pt-underline">
+		  	 	<input id="per-month-data" ng-model="calc.mthBackups"  type="text" placeholder="0" /> backups per month, and <br><br>
+		  	 </label>
+		  	 <label for="per-year-data" class="pt-underline">
+		  	 	<input id="per-year-data" ng-model="calc.yrBackups"  type="text" placeholder="0" class="section-end"/> backups per year.
+		  	 </label>
+		   </fieldset>
+		   		<hr>
+		   <fieldset>
+		      <legend class="label label-info"><strong>Of course I expect my data to grow...</strong></legend>
+					<label for="annual-change" class="pt-underline"> I am anticipating
+						<input id="annual-change" ng-model="calc.yrChange"  type="text" placeholder="0" percent /> % of growth annually.<br><br>
+					</label>
+					<label for="daily-change" class="pt-underline"> I am anticipating
+						<input id="daily-change" ng-model="calc.dlChange" type="text" placeholder="0" percent /> % of data to change daily.
+					</label>
+		    </fieldset>
+
+			</form>
+			</div> <!-- end span 8 -->
+
+			<div class="span5">
+				<div class="well center storage-output">
+					<div>
+						<p class="pt-caps">You need</p>
+						<div class="output-storage-unit img-circle">
+							<span class="pt-storage-output">{{totalStorage(calc)}} GB</span>
+						</div>
+						<br>
+						<p class="pt-caps">of storage space</p>
+					</div>			
+				</div>
+			</div>
+		</div> <!-- end row -->
+
+	</div> <!-- end container -->
+
+<script src="js/angular.js"></script>
+<script src="js/numeral.js"></script>
+<script src="js/app.js"></script>
+<script src="js/directives.js"></script>
+</body>
+</html>
